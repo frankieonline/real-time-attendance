@@ -5,7 +5,19 @@ SoftwareSerial ESP(3, 2);     		   			 /* Rx, Tx */
 void sendATcmd(String cmd, unsigned int time) {
 	/* cmd: Receive AT command String; time: Waiting Time */
 	String response = "";						/* Receive ESP returned value */
-	ESP.print(cmd);								/* Send 
+	ESP.print(cmd);								/* Send AT Command to ESP */
+	
+	unsigned long timeout = time + millis();	/* Waiting Time */
+	
+	while (ESP.available() || millis() < timeout) {
+		/* Wait until there is response or waiting time passed */
+		while (ESP.available()) {
+			char c = ESP.read();				/* Receive ESP response */
+			response += c;
+		}
+	}
+	
+	Serial.print(response);						/* Show ESP response */
 }
 
 void setup() {
