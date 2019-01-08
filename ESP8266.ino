@@ -2,6 +2,12 @@
 
 SoftwareSerial ESP(3, 2);     		   			 /* Rx, Tx */
 
+void sendATcmd(String cmd, unsigned int time) {
+	/* cmd: Receive AT command String; time: Waiting Time */
+	String response = "";						/* Receive ESP returned value */
+	ESP.print(cmd);								/* Send 
+}
+
 void setup() {
 	Serial.begin(9600);							/* Serial Port, 9600 or 115200 */
 	ESP.begin(9600);							/* Connect to ESP-01, 9600 or 115200 */
